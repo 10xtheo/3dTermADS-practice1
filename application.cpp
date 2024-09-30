@@ -14,54 +14,68 @@ TApplication::TApplication()
 int TApplication::exec()
 {
 
-    int ch;
-    ch = menu();
-    LinkedList<double> myList;
-    Stack<int> stackan;
-    ArrayList<int> arrList;
-    ShuntingYard sh;
-    switch (ch)
+    int sm;
+    sm = startMenu();
+
+
+
+
+    switch (sm)
     {
-        case 0:
+        case 1:
         {
-            string infixExpression = "sin 0.5 + 2 ^ 3";
-            string postfixExpression = sh.infixToPostfix(infixExpression);
+            cout << "Выбран пункт 1 - Сортировочная станция" << "\n";
+            ShuntingYard sh;
+            cout << "Введите выражение, содержащее символы "
+                    "{+, -, *, /, ^, sin, cos, (, ), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}" << '\n' << "> ";
+            string expression;
+            cin.ignore();
+            std::getline(std::cin, expression);
+            string postfixExpression = sh.infixToPostfix(expression);
             cout << postfixExpression << endl;
         break;
         }
-        case 1:
+
+        case 2:
         {
+            cout << "Выбран пункт 2 - Операции с списком" << "\n";
+            LinkedList<int> listik;
+
             break;
         }
-        case 2:
-            break;
+
         case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
+        {
+            cout << "Выбран пункт 3 - Операции с динамическим массивом" << "\n";
+            ArrayList<int> arrList;
 
             break;
+        }
+
+        case 4:
+        {
+            cout << "Выбран пункт 4 - Операции с стэком" << "\n" << "> ";
+            Stack<int> stackan;
+            break;
+        }
+
         default:
+        {
             cout << "defauktx";
             break;
-
+        }
     }
     return 0;
 }
 
-int TApplication::menu()
+int TApplication::startMenu()
 {
-   int ch;
-   cout << "0 - " << "\n";
-   cout << "1 - " << "\n";
-   cout << "2 - " << "\n";
-   cout << "3 - " << "\n";
-   cout << "4 - " << "\n";
-   cout << "5 - " << "\n";
-   cout << "6 - " << "\n" << "> ";
-   cin >> ch;
-   return ch;
+   int sm;
+   cout << "Выберите пункт программы" << '\n';
+   cout << "1 - Сортировочная станция" << "\n";
+   cout << "2 - Операции с списком" << "\n";
+   cout << "3 - Операции с динамическим массивом" << "\n";
+   cout << "4 - Операции с стэком" << "\n" << "> ";
+   cin >> sm;
+   return sm;
 }

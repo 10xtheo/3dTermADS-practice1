@@ -36,7 +36,7 @@ public:
     void print();
     void sort();
     T get(int index);
-
+    int find(T value);
 
 };
 
@@ -189,5 +189,19 @@ void LinkedList<T>::sort()
 {
     quickSort(this, 0, size-1   );
 }
+
+template <typename T>
+int LinkedList<T>::find(T value)
+{
+    for (int i = 0; i < this->size; ++i)
+    {
+        if ((*this)[i] == value)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 
 #endif // LINKEDLIST_H

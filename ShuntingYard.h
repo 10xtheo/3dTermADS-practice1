@@ -11,10 +11,13 @@ class ShuntingYard
 {
 public:
     string infixToPostfix(string expression);
-    LinkedList<string> split(string s, string delimiter);
 private:
+    LinkedList<string> split(string s, string delimiter);
     int getPriority(string op);
     bool isOperator(string s);
+    bool isValidSym(string s);
+    bool expressionIsValid(LinkedList<string> splitted);
+
 };
 
 int ShuntingYard::getPriority(string op)
@@ -41,6 +44,31 @@ bool ShuntingYard::isOperator(string s)
     return false;
 }
 
+bool ShuntingYard::isValidSym(string s)
+{
+    string allowedSyms = "0123456789";
+    for (size_t i = 0; i < s.length(); ++i)
+    {
+        if (allowedSyms.find(s[i]) == string::npos)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ShuntingYard::expressionIsValid(LinkedList<string> splitted)
+{
+    for (int i = 0; i < splitted.getSize(); ++i)
+    {
+        if (!(isOperator(splitted[i])) && !(isValidSym(splitted[i])))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 LinkedList<string> ShuntingYard::split(string s, string delimiter)
 {
     size_t pos_start = 0, pos_end, delim_len = delimiter.length();
@@ -60,9 +88,18 @@ LinkedList<string> ShuntingYard::split(string s, string delimiter)
 
 string ShuntingYard::infixToPostfix(string infixStr)
 {
-    Stack<string> operators;
-      string postfix = "";
+
       LinkedList<string> infix = split(infixStr, " ");
+
+      if (!expressionIsValid(infix))
+      {
+          cout << "error: wrong token" << '\n';
+          return " ";
+      }
+
+      Stack<string> operators;
+
+      string postfix = "";
       for (int i = 0; i < infix.getSize(); ++i)
       {
         if (!(isOperator(infix[i])))

@@ -7,7 +7,7 @@ public:
     TApplication();
     int exec();
 private:
-   int menu();
+   int startMenu();
 };
 
 #endif // TAPPLICATION_H
