@@ -25,6 +25,7 @@ public:
     bool isEmpty();
     void print();
     void remove(int index);
+    void sort();
 };
 
 template <typename T>
@@ -32,7 +33,7 @@ T& ArrayList<T>::operator[](int index)
 {
     if (index < 0 || index >= size)
     {
-        throw std::out_of_range("Index out of bounds");
+        throw std::out_of_range("Index out of range to use []");
     }
 
     return arr[index];
@@ -78,6 +79,10 @@ void ArrayList<T>::append(T element)
 template <typename T>
 void ArrayList<T>::add(T element, int index)
 {
+    if (index < 0 || index > size)
+    {
+        throw std::out_of_range("Index out of range");
+    }
     if (size == capacity)
     {
         ensureCapacity();
@@ -111,6 +116,7 @@ void ArrayList<T>::print()
     }
     cout << endl;
 }
+
 template <typename T>
 void ArrayList<T>::remove(int index)
 {
@@ -127,5 +133,44 @@ void ArrayList<T>::remove(int index)
 
     --size;
 }
+
+
+template <typename T>
+void quickSortA(T* arr, int low, int high)
+{
+    int i = low;
+    int j = high;
+
+    int pivot = (*arr)[(i + j) / 2];
+    int temp;
+
+    while (i <= j)
+    {
+        while ((*arr)[i] < pivot)
+            i++;
+        while ((*arr)[j] > pivot)
+            j--;
+        if (i <= j)
+        {
+            temp = (*arr)[i];
+            (*arr)[i] = (*arr)[j];
+            (*arr)[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    // Recursively sort the partitions
+    if (j > low)
+        quickSortA(arr, low, j);
+    if (i < high)
+        quickSortA(arr, i, high);
+}
+
+template <typename T>
+void ArrayList<T>::sort()
+{
+    quickSortA(this, 0, size-1   );
+}
+
 
 #endif // ARRAYLIST_H

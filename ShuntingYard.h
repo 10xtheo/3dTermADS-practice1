@@ -5,7 +5,6 @@
 #include "LinkedList.h"
 #include "Stack.h"
 #include <unistd.h>
-#include <string>
 using namespace std;
 
 class ShuntingYard
@@ -58,18 +57,6 @@ bool ShuntingYard::isValidSym(string s)
     return true;
 }
 
-bool ShuntingYard::expressionIsValid(LinkedList<string> splitted)
-{
-    for (int i = 0; i < splitted.getSize(); ++i)
-    {
-        if (!(isOperator(splitted[i])) && !(isValidSym(splitted[i])))
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
 LinkedList<string> ShuntingYard::split(string s, string delimiter)
 {
     size_t pos_start = 0, pos_end, delim_len = delimiter.length();
@@ -92,11 +79,15 @@ string ShuntingYard::infixToPostfix(string infixStr)
 
       LinkedList<string> infix = split(infixStr, " ");
 
-//      if (!expressionIsValid(infix))
-//      {
-//          cout << "error: wrong token" << '\n';
-//          return " ";
-//      }
+      // check validity of expression
+      for (int i = 0; i < infix.getSize(); ++i)
+      {
+          if (!isOperator(infix[i]) && !isValidSym(infix[i]))
+          {
+              cout << "wrong token";
+              return " ";
+          }
+      }
 
       Stack<string> operators;
 

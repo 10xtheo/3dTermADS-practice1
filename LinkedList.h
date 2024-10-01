@@ -27,7 +27,7 @@ private:
 public:
     LinkedList();
     ~LinkedList();
-    void clear();
+
     T& operator[](int index);
 
     void append(T value);
@@ -35,25 +35,13 @@ public:
     int getSize();
     void print();
     void sort();
-    T get(int index);
     int find(T value);
     void insert(T newData, int position);
+    void clear();
 };
 
 template <typename T>
 LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), size(0) {}
-
-template <typename T>
-void LinkedList<T>::clear()
-{
-    Node<T>* current = head;
-    while (current != nullptr)
-    {
-        Node<T>* next = current->next;
-        delete current;
-        current = next;
-    }
-}
 
 template <typename T>
 LinkedList<T>::~LinkedList()
@@ -61,6 +49,18 @@ LinkedList<T>::~LinkedList()
     clear();
 }
 
+template <typename T>
+void LinkedList<T>::clear()
+{
+    Node<T>* current = head; // Start from the head
+            while (current != nullptr)
+            {
+                Node<T>* temp = current; // Store current node
+                current = current->next; // Move to next node
+                delete temp; // Free memory of the current node
+            }
+            head = nullptr; // Set head to nullptr after clearing
+}
 
 template <typename T>
 void LinkedList<T>::append(T value)
@@ -82,10 +82,14 @@ void LinkedList<T>::append(T value)
 template <typename T>
 void LinkedList<T>::remove(int position)
 {
+//    if (position < 0 || position >= size)
+//    {
+//        cout << "index out of range to remove" << endl;
+//        return;
+//    }
     if (position < 0 || position >= size)
     {
-        cout << "Position out of bounds." << endl;
-        return;
+        throw std::out_of_range("Index out of range");
     }
 
     Node<T>* current = head;
@@ -148,7 +152,7 @@ T& LinkedList<T>::operator[](int index)
 {
     if (index < 0 || index >= size)
     {
-        throw std::out_of_range("Index out of bounds");
+        throw std::out_of_range("index out of range to use []");
     }
 
     Node<T>* current = head;
@@ -157,13 +161,6 @@ T& LinkedList<T>::operator[](int index)
         current = current->next;
     }
     return current->data; // Return reference to data
-}
-
-template <typename T>
-T LinkedList<T>::get(int index)
-{
-    T res = 11;
-    return (*this)[index];
 }
 
 template <typename T>
@@ -240,7 +237,7 @@ void LinkedList<T>::insert(T newData, int position)
     }
 
     if (current == nullptr) {
-        cout << "Position out of bounds. Insertion failed." << endl;
+        cout << "index out of range. Insertion failed." << endl;
         delete newNode;          // Clean up memory if insertion fails
         return;
     }
@@ -254,4 +251,6 @@ void LinkedList<T>::insert(T newData, int position)
     current->next = newNode;        // Link previous node to the new node
     newNode->prev = current;        // Link new node's prev to previous node
 }
+
+
 #endif // LINKEDLIST_H
