@@ -21,8 +21,8 @@ int TApplication::exec()
     {
         case 1:
         {
-            cout << "Выбран пункт 1 - Сортировочная станция" << "\n";
             ShuntingYard sh;
+            cout << "Выбран пункт 1 - Сортировочная станция" << "\n";
             cout << "Введите выражение, содержащее символы "
                     "{+, -, *, /, ^, sin, cos, (, ), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9}" << '\n' << "> ";
             string expression;
@@ -35,29 +35,15 @@ int TApplication::exec()
 
         case 2:
         {
-            cout << "Выбран пункт 2 - Операции с списком" << "\n";
             LinkedList<int> listik;
-            listik.append(9);
-            listik.append(2);
-            listik.append(5);
-            cout << "1. Получить элемент по индексу" << "\n";
-            cout << "2. Вставить элемент в список по индексу" << "\n";
-            cout << "3. Вставить элемент в конец списка" << "\n";
-            cout << "4. Отсортировать список" << "\n";
-            cout << "5. Удалить элемент по индексу" << "\n";
-            cout << "6. Добавить элемент в список по индексу" << "\n";
-            cout << "7. Изменить элемент по индексу" << "\n";
-            cout << "> ";
-            int ch;
-            cin >> ch;
+            int ch = listMenu();
             switch (ch)
             {
                 case 1:
                 {
 
                     cout << "Индекс: ";
-                    int index;
-                    cin >> index;
+                    int index = getInt();
                     cout << "Элемент: " << listik[index] << "\n";
                     break;
                 }
@@ -65,11 +51,9 @@ int TApplication::exec()
                 case 2:
                 {
                     cout << "Индекс: ";
-                    int index;
-                    cin >> index;
+                    int index = getInt();
                     cout << "Значение: ";
-                    int value;
-                    cin >> value;
+                    int value = getInt();
                     listik.insert(value, index);
                     listik.print();
                     break;
@@ -77,8 +61,7 @@ int TApplication::exec()
                 case 3:
                 {
                     cout << "Значение: ";
-                    int value;
-                    cin >> value;
+                    int value = getInt();
                     listik.append(value);
                     listik.print();
                     break;
@@ -93,8 +76,7 @@ int TApplication::exec()
                 case 5:
                 {
                     cout << "Индекс: ";
-                    int index;
-                    cin >> index;
+                    int index = getInt();
                     listik.remove(index);
                     listik.print();
                     break;
@@ -103,11 +85,9 @@ int TApplication::exec()
                 case 6:
                 {
                     cout << "Индекс: ";
-                    int index;
-                    cin >> index;
+                    int index = getInt();
                     cout << "Значение: ";
-                    int value;
-                    cin >> value;
+                    int value = getInt();
                     listik.insert(value, index);
                     listik.print();
                     break;
@@ -115,11 +95,9 @@ int TApplication::exec()
                 case 7:
                 {
                     cout << "Индекс: ";
-                    int index;
-                    cin >> index;
+                    int index = getInt();
                     cout << "Значение: ";
-                    int value;
-                    cin >> value;
+                    int value = getInt();
                     listik[index] = value;
                     listik.print();
                     break;
@@ -127,7 +105,7 @@ int TApplication::exec()
 
                 default:
                 {
-                    cout << "wrong choice" << "\n";
+                    cout << "wrong menu item" << "\n";
                     break;
                 }
 
@@ -138,33 +116,93 @@ int TApplication::exec()
 
         case 3:
         {
-            cout << "Выбран пункт 3 - Операции с динамическим массивом" << "\n";
             ArrayList<int> arrList;
+            int ch = arrListMenu();
+            switch (ch)
+            {
+                case 1:
+                {
+                    cout << "Индекс: ";
+                    int index = getInt();
+                    cout << "Элемент: " << arrList[index] << "\n";
+                    break;
+                }
 
+                case 2:
+                {
+                    cout << "Индекс: ";
+                    int index = getInt();
+                    cout << "Значение: ";
+                    int value = getInt();
+                    arrList.add(value, index);
+                    arrList.print();
+                    break;
+                }
+                case 3:
+                {
+                    cout << "Значение: ";
+                    int value = getInt();
+                    arrList.append(value);
+                    arrList.print();
+                    break;
+                }
+
+                case 4:
+                {
+//                    arrList.sort();
+//                    arrList.print();
+                    break;
+                }
+                case 5:
+                {
+                    cout << "Индекс: ";
+                    int index = getInt();
+                    arrList.remove(index);
+                    arrList.print();
+                    break;
+                }
+
+                case 6:
+                {
+                    cout << "Индекс: ";
+                    int index = getInt();
+                    cout << "Значение: ";
+                    int value = getInt();
+                    arrList.add(value, index);
+                    arrList.print();
+                    break;
+                }
+                case 7:
+                {
+                    cout << "Индекс: ";
+                    int index = getInt();
+                    cout << "Значение: ";
+                    int value = getInt();
+                    arrList[index] = value;
+                    arrList.print();
+                    break;
+                }
+
+                default:
+                {
+                    cout << "wrong menu item" << "\n";
+                    break;
+                }
+
+            }
             break;
         }
 
         case 4:
         {
-            cout << "Выбран пункт 4 - Операции с стэком" << "\n" << "> ";
             Stack<int> stackan;
-            stackan.push(5);
-            stackan.push(6);
-            stackan.push(7);
-            cout << "1. Добавить элемент в стэк" << "\n";
-            cout << "2. Удалить и получить верхний элемент" << "\n";
-            cout << "3. Получить верхний элемент" << "\n";
-            cout << "4. Состояние стэка" << "\n";
-            cout << "> ";
-            int ch;
-            cin >> ch;
+            int ch = stackMenu();
             switch (ch)
             {
                 case 1:
                 {
                     cout << "Значение: ";
-                    int value;
-                    cin >> value;
+                    int value = getInt();
                     stackan.push(value);
                     stackan.print();
                     break;
@@ -193,7 +231,7 @@ int TApplication::exec()
 
                 default:
                 {
-                    cout << "wrong choice" << "\n";
+                    cout << "wrong menu item" << "\n";
                     break;
                 }
 
@@ -204,7 +242,7 @@ int TApplication::exec()
 
         default:
         {
-            cout << "defauktx";
+            cout << "wrong menu item" << "\n";
             break;
         }
     }
@@ -213,12 +251,66 @@ int TApplication::exec()
 
 int TApplication::startMenu()
 {
-   int sm;
    cout << "Выберите пункт программы" << '\n';
    cout << "1 - Сортировочная станция" << "\n";
    cout << "2 - Операции с списком" << "\n";
    cout << "3 - Операции с динамическим массивом" << "\n";
    cout << "4 - Операции с стэком" << "\n" << "> ";
-   cin >> sm;
-   return sm;
+   int ch = getInt();
+   return ch;
+}
+
+int TApplication::getInt()
+{
+    int a;
+      cin >> a;
+      while (cin.fail())
+      {
+        cin.clear();
+        cin.ignore();
+        cin >> a;
+      }
+      return a;
+}
+
+int TApplication::listMenu()
+{
+    cout << "Выбран пункт 2 - Операции с списком" << "\n";
+    cout << "1. Получить элемент по индексу" << "\n";
+    cout << "2. Вставить элемент в список по индексу" << "\n";
+    cout << "3. Вставить элемент в конец списка" << "\n";
+    cout << "4. Отсортировать список" << "\n";
+    cout << "5. Удалить элемент по индексу" << "\n";
+    cout << "6. Добавить элемент в список по индексу" << "\n";
+    cout << "7. Изменить элемент по индексу" << "\n";
+    cout << "> ";
+    int ch = getInt();
+    return ch;
+}
+
+int TApplication::arrListMenu()
+{
+    cout << "Выбран пункт 3 - Операции с динамическим массивом" << "\n";
+    cout << "1. Получить элемент по индексу" << "\n";
+    cout << "2. Вставить элемент в массив по индексу" << "\n";
+    cout << "3. Вставить элемент в конец массива" << "\n";
+    cout << "4. Отсортировать массив" << "\n";
+    cout << "5. Удалить элемент по индексу" << "\n";
+    cout << "6. Добавить элемент в массив по индексу" << "\n";
+    cout << "7. Изменить элемент по индексу" << "\n";
+    cout << "> ";
+    int ch = getInt();
+    return ch;
+}
+
+int TApplication::stackMenu()
+{
+    cout << "Выбран пункт 4 - Операции с стэком" << "\n" << "> ";
+    cout << "1. Добавить элемент в стэк" << "\n";
+    cout << "2. Удалить и получить верхний элемент" << "\n";
+    cout << "3. Получить верхний элемент" << "\n";
+    cout << "4. Состояние стэка" << "\n";
+    cout << "> ";
+    int ch = getInt();
+    return ch;
 }

@@ -5,6 +5,7 @@
 #include "LinkedList.h"
 #include "Stack.h"
 #include <unistd.h>
+#include <string>
 using namespace std;
 
 class ShuntingYard
@@ -91,11 +92,11 @@ string ShuntingYard::infixToPostfix(string infixStr)
 
       LinkedList<string> infix = split(infixStr, " ");
 
-      if (!expressionIsValid(infix))
-      {
-          cout << "error: wrong token" << '\n';
-          return " ";
-      }
+//      if (!expressionIsValid(infix))
+//      {
+//          cout << "error: wrong token" << '\n';
+//          return " ";
+//      }
 
       Stack<string> operators;
 

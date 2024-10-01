@@ -24,6 +24,7 @@ public:
     int getSize();
     bool isEmpty();
     void print();
+    void remove(int index);
 };
 
 template <typename T>
@@ -109,6 +110,22 @@ void ArrayList<T>::print()
         cout << arr[i] << ' ';
     }
     cout << endl;
+}
+template <typename T>
+void ArrayList<T>::remove(int index)
+{
+    if (index < 0 || index >= size)
+    {
+        throw std::out_of_range("Index out of range");
+    }
+
+    // Shift elements to the left to fill the gap
+    for (int i = index; i < size - 1; ++i)
+    {
+        arr[i] = arr[i + 1];
+    }
+
+    --size;
 }
 
 #endif // ARRAYLIST_H

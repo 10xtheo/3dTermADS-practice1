@@ -6,7 +6,7 @@
 using namespace std;
 
 template <class T>
-class Stack : private LinkedList<T>
+class Stack : public LinkedList<T>
 {
 public:
     void push(T value);
