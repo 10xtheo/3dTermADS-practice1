@@ -27,7 +27,7 @@ private:
 public:
     LinkedList();
     ~LinkedList();
-
+    void clear();
     T& operator[](int index);
 
     void append(T value);
@@ -37,17 +37,30 @@ public:
     void sort();
     T get(int index);
     int find(T value);
-
+    void insert(T newData, int position);
 };
 
 template <typename T>
 LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
 template <typename T>
+void LinkedList<T>::clear()
+{
+    Node<T>* current = head;
+    while (current != nullptr)
+    {
+        Node<T>* next = current->next;
+        delete current;
+        current = next;
+    }
+}
+
+template <typename T>
 LinkedList<T>::~LinkedList()
 {
-
+    clear();
 }
+
 
 template <typename T>
 void LinkedList<T>::append(T value)
@@ -203,5 +216,42 @@ int LinkedList<T>::find(T value)
     return -1;
 }
 
+template <typename T>
+void LinkedList<T>::insert(T newData, int position)
+{
+    Node<T>* newNode = new Node<T>(newData); // Create a new node
+    newNode->data = newData;    // Assign data to the new node
+    newNode->next = nullptr;    // Initialize next pointer
+    newNode->prev = nullptr;    // Initialize prev pointer
 
+    // If inserting at the head (position 0)
+    if (position == 0) {
+        newNode->next = head;     // Point new node to current head
+        if (head != nullptr) {
+            head->prev = newNode; // Update previous head's prev pointer
+        }
+        head = newNode;           // Update head to be the new node
+        return;
+    }
+
+    Node<T>* current = head;       // Start from the head
+    for (int i = 0; current != nullptr && i < position - 1; i++) {
+        current = current->next; // Traverse to the node before the desired position
+    }
+
+    if (current == nullptr) {
+        cout << "Position out of bounds. Insertion failed." << endl;
+        delete newNode;          // Clean up memory if insertion fails
+        return;
+    }
+
+    // Insert the new node at the desired position
+    newNode->next = current->next; // Link new node to the next node
+    if (current->next != nullptr) {
+        current->next->prev = newNode; // Link next node's prev to new node
+    }
+
+    current->next = newNode;        // Link previous node to the new node
+    newNode->prev = current;        // Link new node's prev to previous node
+}
 #endif // LINKEDLIST_H
